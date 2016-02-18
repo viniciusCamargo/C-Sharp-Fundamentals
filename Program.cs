@@ -11,7 +11,13 @@ namespace Grades
         static void Main(string[] args)
         {
             GradeBook book = new GradeBook();
+
+            book.NameChanged += new NameChangedDelegate(OnNameChanged);
+            book.NameChanged += new NameChangedDelegate(OnNameChanged2);
+
             book.Name = "Vini's Grade Book";
+            book.Name = "Vini's Book";
+
             book.Name = null; // won't be written because of the property validation
             book.AddGrade(91);
             book.AddGrade(89.5f);
@@ -23,6 +29,17 @@ namespace Grades
             WriteResult("Highest", (int)stats.HighestGrade);
             WriteResult("Lowest", stats.LowestGrade);
         }
+
+        static void OnNameChanged(string existingName, string newName)
+        {
+            Console.WriteLine($"Grade book changing name from {existingName} to {newName}");
+        }
+
+        static void OnNameChanged2(string existingName, string newName)
+        {
+            Console.WriteLine("***");
+        }
+
         static void WriteResult(string description, int result)
         {
             Console.WriteLine(description + ": " + result);
