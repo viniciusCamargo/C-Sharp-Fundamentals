@@ -12,37 +12,23 @@ namespace Grades
         {
             GradeBook book = new GradeBook();
 
-            //book.NameChanged += new NameChangedDelegate(OnNameChanged);
-            //book.NameChanged += new NameChangedDelegate(OnNameChanged2);
-            //book.NameChanged += new NameChangedDelegate(OnNameChanged2);
-            book.NameChanged += OnNameChanged;
-
-            book.Name = "Vini's Grade Book";
-            book.Name = "Vini's Book";
-
-            book.Name = null; // won't be written because of the property validation
             book.AddGrade(91);
             book.AddGrade(89.5f);
             book.AddGrade(75);
 
             GradeStatistics stats = book.ComputeStatistics();
-            Console.WriteLine(book.Name);
             WriteResult("Average", stats.AverageGrade);
-            WriteResult("Highest", (int)stats.HighestGrade);
+            WriteResult("Highest", stats.HighestGrade);
             WriteResult("Lowest", stats.LowestGrade);
-        }
-
-        static void OnNameChanged(object sender, NameChangedEventArgs args)
-        {
-            Console.WriteLine($"Grade book changing name from {args.ExistingName} to {args.NewName}");
-        }
-
-        static void WriteResult(string description, int result)
-        {
-            Console.WriteLine(description + ": " + result);
+            WriteResult("Grade", stats.LetterGrade);
         }
 
         static void WriteResult(string description, float result)
+        {
+            Console.WriteLine($"{description}: {result:C}");
+        }
+
+        static void WriteResult(string description, string result)
         {
             Console.WriteLine($"{description}: {result:C}");
         }
