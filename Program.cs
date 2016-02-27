@@ -11,12 +11,17 @@ namespace Grades
     {
         static void Main(string[] args)
         {
-            GradeBook book = new GradeBook();
+            GradeBook book = CreateGradeBook();
 
-            GetBookName(book);
+            //GetBookName(book);
             AddGrades(book);
             SaveGrades(book);
             WriteResults(book);
+        }
+
+        private static GradeBook CreateGradeBook()
+        {
+            return new ThrowAwayGradeBook();
         }
 
         private static void WriteResults(GradeBook book)
@@ -58,12 +63,12 @@ namespace Grades
 
         static void WriteResult(string description, float result)
         {
-            Console.WriteLine($"{description}: {result:C}");
+            Console.WriteLine($"{description}: {result:0.00}");
         }
 
         static void WriteResult(string description, string result)
         {
-            Console.WriteLine($"{description}: {result:C}");
+            Console.WriteLine($"{description}: {result:0.00}");
         }
     }
 }
