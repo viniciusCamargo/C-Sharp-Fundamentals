@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Grades
 {
-    public class GradeBook
+    public class GradeBook : GradeTracker
     {
         public GradeBook()
         {
@@ -16,15 +16,19 @@ namespace Grades
         }
 
         /*
-         * With the 'virtual' keyword, when the C# compiler sees me invoke
+         * "With the 'virtual' keyword, when the C# compiler sees me invoke
          * ComputeStatistics() through a variable type GradeBook() it will no
          * longer use the type of the variable to figure out which method to
          * call, instead it is going to use the type of object, the type it
          * sees at runtime. So, if it sees that GradeBook() is a 
          * ThrowAwayGradeBook() it will look to see if the ThrowAwayGradeBook()
-         * 'overrides' ComputeStatistics().
+         * 'overrides' ComputeStatistics()."
+         *
+         * Also:
+         * "An abstract method is implicitly a virtual method, so
+         * the derived method should 'override' the base method"
          */
-        public virtual GradeStatistics ComputeStatistics()
+        public override GradeStatistics ComputeStatistics()
         {
             Console.WriteLine("GradeBook::ComputeStatistics");
 
@@ -41,7 +45,7 @@ namespace Grades
             return stats;
         }
 
-        public void WriteGrades(TextWriter destination)
+        public override void WriteGrades(TextWriter destination)
         {
             for (int i = grades.Count; i > 0; i--)
             {
@@ -49,40 +53,11 @@ namespace Grades
             }
         }
 
-        public void AddGrade(float grade)
+        public override void AddGrade(float grade)
         {
             grades.Add(grade);
         }
 
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                if (String.IsNullOrEmpty(value))
-                {
-                    throw new ArgumentException("Name cannot be null or empty");
-                }
-
-                if (_name != value && NameChanged != null)
-                {
-                    NameChangedEventArgs args = new NameChangedEventArgs();
-                    args.ExistingName = _name;
-                    args.NewName = value;
-
-                    NameChanged(this, args);
-                }
-
-                _name = value;
-            }
-        }
-
-        public event NameChangedDelegate NameChanged;
-
-        private string _name;
         protected List<float> grades;
         /*
          * public methods: anyone can access
