@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections;
+using System.IO;
 
 namespace Grades
 {
@@ -12,7 +13,7 @@ namespace Grades
      *
      * "Any class or struct can inherit from any interface"
      */
-    internal interface IGradeTracker
+    internal interface IGradeTracker : IEnumerable
     {
         /*
          * "Inside of an interface I cannot use access modifiers"
