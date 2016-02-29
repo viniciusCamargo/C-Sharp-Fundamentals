@@ -7,7 +7,13 @@ using System.Threading.Tasks;
 
 namespace Grades
 {
-    public abstract class GradeTracker
+    /*
+     * If I want to derive from a specific class in addition to
+     * implementing an inteface, the class that I'm inheriting from
+     * has to come first in the list.
+     * i.e. public abstract class GradeTracker : object, IGradeTracker
+     */
+    public abstract class GradeTracker : IGradeTracker
     {
         /*
          * "An abstract method is implicitly an virtual method, so
